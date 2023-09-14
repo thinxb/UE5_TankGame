@@ -5,6 +5,7 @@
 
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Components/InputComponent.h"
 
 ATank::ATank()
 {
@@ -16,4 +17,22 @@ ATank::ATank()
 
 
 
+}
+
+void ATank::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+}
+
+void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+
+	PlayerInputComponent->BindAxis(TEXT("MoveForward"), this, &ATank::Move);
+
+}
+
+void ATank::Move(float Value)
+{
+	//UE_LOG(LogTemp, Display, TEXT("Move Value: %F"),Value);
 }

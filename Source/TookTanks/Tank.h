@@ -17,6 +17,12 @@ class TOOKTANKS_API ATank : public ABasePawn
 public:
 	ATank();
 
+public:
+	virtual void Tick(float DeltaTime) override;
+
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+
 private:
 	UPROPERTY(VisibleAnyWhere,Category = "Components")
 	class USpringArmComponent* SpringArm;
@@ -24,5 +30,10 @@ private:
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	class UCameraComponent* Camera;
 
+
+	void Move(float Value);
+
 	
+
+
 };
