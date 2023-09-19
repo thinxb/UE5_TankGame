@@ -22,7 +22,12 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	//修改炮塔转向
 	void RotatorTurret(FVector LookAtTarget);
+
+	//开火
+	void Fire();
+
 
 private:
 

@@ -42,6 +42,22 @@ void ABasePawn::RotatorTurret(FVector LookAtTarget)
 
 }
 
+void ABasePawn::Fire()
+{
+	//获取炮塔组件位置
+	FVector ProjectileSpwanPointLocation = ProjectileSpwanPoint->GetComponentLocation();
+
+	FHitResult HitResult;
+	DrawDebugSphere(
+		GetWorld(),
+		ProjectileSpwanPointLocation,
+		25.0f,
+		12,
+		FColor::Red,
+		false,
+		30.0f);
+}
+
 // Called every frame
 void ABasePawn::Tick(float DeltaTime)
 {
