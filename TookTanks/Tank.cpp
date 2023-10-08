@@ -8,6 +8,7 @@
 #include "Components/InputComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "Chaos/DebugDrawQueue.h"
+#include "HealthComponent.h"
 
 ATank::ATank()
 {
@@ -17,15 +18,14 @@ ATank::ATank()
 	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	Camera->SetupAttachment(SpringArm);
 
-
-
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 }
 
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
 
-	PlayerControllerRef = Cast<APlayerController>(GetController());
+	TankPlayerController = Cast<APlayerController>(GetController());
 
 
 }
@@ -35,9 +35,9 @@ void ATank::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	FHitResult HitResult;
-	if (PlayerControllerRef)
+	if (TankPlayerController)
 	{
-		PlayerControllerRef->GetHitResultUnderCursor(
+		TankPlayerController->GetHitResultUnderCursor(
 			ECollisionChannel::ECC_Visibility,
 			false, HitResult);
 
@@ -45,6 +45,16 @@ void ATank::Tick(float DeltaTime)
 	}
 	
 
+}
+
+void ATank::HandleDestruction()
+{
+	Super::HandleDestruction();
+
+	//Òþ²ØÌ¹¿Ë
+	SetActorHiddenInGame(true);
+
+	SetActorTickEnabled(false);
 }
 
 void ATank::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

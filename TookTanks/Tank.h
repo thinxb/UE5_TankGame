@@ -23,9 +23,11 @@ protected:
 public:
 	virtual void Tick(float DeltaTime) override;
 
+	void HandleDestruction();
+
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-
+	APlayerController* GetTankPlayerController()const { return TankPlayerController; };
 
 private:
 	UPROPERTY(VisibleAnyWhere,Category = "Components")
@@ -33,6 +35,9 @@ private:
 
 	UPROPERTY(VisibleAnyWhere, Category = "Components")
 	class UCameraComponent* Camera;
+
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	class UHealthComponent* HealthComponent;
 
 	UPROPERTY(EditAnywhere,Category = "Movement")
 	float Speed = 200.0f;
@@ -47,7 +52,7 @@ private:
 	//×óÓÒÐý×ª
 	void Turn(float Value);
 	
-	APlayerController* PlayerControllerRef;
+	APlayerController* TankPlayerController;
 
 
 };

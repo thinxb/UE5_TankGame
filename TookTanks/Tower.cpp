@@ -5,9 +5,11 @@
 
 #include "Tank.h"
 #include "Kismet/GameplayStatics.h"
+#include "HealthComponent.h"
 
 ATower::ATower()
 {
+	HealthComponent = CreateDefaultSubobject<UHealthComponent>(TEXT("HealthComponent"));
 }
 
 void ATower::Tick(float DeltaTime)
@@ -22,6 +24,12 @@ void ATower::Tick(float DeltaTime)
 
 	}
 
+}
+
+void ATower::HandleDestruction()
+{
+	Super::HandleDestruction();
+	Destroy();
 }
 
 void ATower::BeginPlay()
@@ -45,15 +53,15 @@ void ATower::CheckFireCondition()
 		Fire();
 		FVector ProjectileSpwanPointLocation = GetActorLocation();
 
-		FHitResult HitResult;
-		DrawDebugSphere(
-			GetWorld(),
-			ProjectileSpwanPointLocation,
-			25.0f,
-			12,
-			FColor::Red,
-			false,
-			3.0f);
+		//FHitResult HitResult;
+		//DrawDebugSphere(
+		//	GetWorld(),
+		//	ProjectileSpwanPointLocation,
+		//	25.0f,
+		//	12,
+		//	FColor::Red,
+		//	false,
+		//	3.0f);
 	}
 
 }

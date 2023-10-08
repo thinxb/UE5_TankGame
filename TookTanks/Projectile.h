@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Projectile.generated.h"
 
+
 UCLASS()
 class TOOKTANKS_API AProjectile : public AActor
 {
@@ -20,7 +21,23 @@ protected:
 	virtual void BeginPlay() override;
 
 private:
-	UStaticMeshComponent* StaticMeshComponent;
+	UPROPERTY(EditDefaultsOnly,Category = "Combat")
+	UStaticMeshComponent* ProjectileMesh;
+
+	UPROPERTY(VisibleAnywhere,Category = "Movement")
+	class UProjectileMovementComponent* ProjectileMovementComponent;
+
+	UPROPERTY(EditAnywhere)
+	float Damage = 50.0f;
+
+	//UPROPERTY(EditDefaultsOnly,Category = "Movement")
+	//float MaxSpeed;
+
+	//UPROPERTY(EditDefaultsOnly, Category = "Movement")
+	//float InitSpeed;
+
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 public:	
 	// Called every frame

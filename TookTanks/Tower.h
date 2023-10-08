@@ -20,6 +20,8 @@ public:
 
 	virtual void Tick(float DeltaTime) override;
 	
+	void HandleDestruction();
+
 protected:
 
 	virtual void BeginPlay()override;
@@ -33,6 +35,9 @@ private:
 	UPROPERTY(EditDefaultsOnly,Category = "Combat")
 	float FireRange = 500.0f;
 
+	//伤害组件
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	class UHealthComponent* HealthComponent;
 
 	//定时器
 	FTimerHandle FireRateTimerHandle;
