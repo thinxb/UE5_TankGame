@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BasePawn.h"
+#include "MyPawn.h"
 #include "Tank.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TOOKTANKS_API ATank : public ABasePawn
+class TOOKTANKS_API ATank : public AMyPawn
 {
 	GENERATED_BODY()
 
@@ -29,6 +29,8 @@ public:
 
 	APlayerController* GetTankPlayerController()const { return TankPlayerController; };
 
+	bool bAlive = true;
+
 private:
 	UPROPERTY(VisibleAnyWhere,Category = "Components")
 	class USpringArmComponent* SpringArm;
@@ -45,6 +47,8 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float TurnRate = 200.0f;
+
+
 
 
 	//«∞∫Û“∆∂Ø

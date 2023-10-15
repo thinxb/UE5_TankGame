@@ -10,6 +10,9 @@
  
 void AToonTanksGameMode::ActorDied(AActor* DeadActor)
 {
+	//初始化炮塔数量
+	TargetTowers = GetTargerTowers();
+
 	//检查死亡的是否是坦克
 	if (DeadActor == Tank)
 	{
@@ -18,10 +21,16 @@ void AToonTanksGameMode::ActorDied(AActor* DeadActor)
 		{
 			ToonTanksPlayerController->SetPlayerEnabledState(false);
 		}
+		GameOver(false);
 	}
 	else if (ATower* DestroyedTower = Cast<ATower>(DeadActor))
 	{
 		DestroyedTower->HandleDestruction();
+		TargetTowers--;
+		if (TargetTowers == 0)
+		{
+			GameOver(true);
+		}
 	}
 
 }
@@ -34,6 +43,16 @@ void AToonTanksGameMode::BeginPlay()
 
 }
 
+//void AToonTanksGameMode::GameOver(bool bWonGame)
+//{
+//	UE_LOG(LogTemp, Warning, TEXT("Over"));
+//}
+
+//void AToonTanksGameMode::StartGame()
+//{
+//
+//}
+
 void AToonTanksGameMode::HandleGameStart()
 {
 	//用于获取游戏中的第一个玩家控制的角色。这个角色将被转换成一个ATank对象，并存储在变量 Tank 中。
@@ -41,6 +60,10 @@ void AToonTanksGameMode::HandleGameStart()
 
 	//获取玩家控制器（AToonTanksPlayerController）  用于获取游戏中的第一个玩家控制器。这个控制器将被转换成一个AToonTanksPlayerController对象，并存储在变量 ToonTanksPlayerController 中
 	ToonTanksPlayerController = Cast<AToonTanksPlayerController>(UGameplayStatics::GetPlayerController(this, 0));
+
+	StartGame();
+
+
 
 	//检查是否成功获取了玩家控制器 (ToonTanksPlayerController)
 	if (ToonTanksPlayerController)
@@ -68,4 +91,16 @@ void AToonTanksGameMode::HandleGameStart()
 			false
 		);
 	}
+}
+
+
+int32 AToonTanksGameMode::GetTargerTowers()
+{
+	//存储炮塔数组
+	TArray<AActor*> Towers;
+
+	//存储炮塔
+	UGameplayStatics::GetAllActorsOfClass(this, ATower::StaticClass(), Towers);
+
+	return Towers.Num();
 }

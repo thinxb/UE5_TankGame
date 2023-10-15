@@ -18,8 +18,6 @@ public:
 	//处理角色死亡
 	void HandleDestruction();
 
-public:
-
 
 protected:
 	// Called when the game starts or when spawned
@@ -34,27 +32,30 @@ protected:
 
 private:
 
-	UPROPERTY(VisibleAnyWhere,BlueprintReadOnly,Category = "Components" , meta = (AllowPrivateAccess = "true"))
-	class UCapsuleComponent* CapsuleComp;
+	//UPROPERTY(VisibleAnyWhere,BlueprintReadOnly,Category = "Components" , meta = (AllowPrivateAccess = "true"))
+	//class UCapsuleComponent* CapsuleComp;
 
-	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* BaseMesh;
+	//UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	//UStaticMeshComponent* BaseMesh;
 
-	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	UStaticMeshComponent* TurretMesh;
+	//UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	//UStaticMeshComponent* TurretMesh;
 
-	UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
-	USceneComponent* ProjectileSpwanPoint;
+	//UPROPERTY(VisibleAnyWhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
+	//USceneComponent* ProjectileSpwanPoint;
 
-	UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-	int32 VisibleAnyWhereInt = 12;
+	//UPROPERTY(VisibleAnyWhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+	//int32 VisibleAnyWhereInt = 12;
 
-	UPROPERTY(EditAnyWhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	int32 EditAnyWhereeInt = 12;
+	//UPROPERTY(EditAnyWhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	//int32 EditAnyWhereeInt = 12;
 
-	UPROPERTY(EditDefaultsOnly,Category = "Combat")
-	TSubclassOf<class AProjectile> ProjectileClass;
+	//UPROPERTY(EditDefaultsOnly,Category = "Combat")
+	//TSubclassOf<class AProjectile> ProjectileClass;
 
+	////死亡爆炸效果
+	//UPROPERTY(EditAnywhere, Category = "Combat")
+	//class UParticleSystem* DeathParticles;
 
 public:	
 	// Called every frame

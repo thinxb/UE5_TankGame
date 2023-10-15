@@ -23,6 +23,13 @@ public:
 protected:
 	virtual void BeginPlay()override;
 
+	UFUNCTION(BlueprintImplementableEvent)
+	void StartGame(); 
+
+	//游戏是否结束
+	UFUNCTION(BlueprintImplementableEvent)
+	void GameOver(bool bWonGame);
+
 private:
 
 	//获取一个坦克指针
@@ -33,5 +40,12 @@ private:
 	float StartDelay = 3.0f;
 
 	void HandleGameStart();
+
+	//记录炮塔数量
+	int32 TargetTowers = 0;
+
+	//获取炮塔数量
+	int32 GetTargerTowers();
+
 
 };

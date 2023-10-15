@@ -7,6 +7,8 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "GameFramework/DamageType.h"
 #include "Kismet/GameplayStatics.h"
+#include "Particles/ParticleSystemComponent.h"
+
 
 //#include "Components/PrimitiveComponent.h"
 
@@ -23,7 +25,12 @@ AProjectile::AProjectile()
 
 	ProjectileMovementComponent->MaxSpeed = 1300.0f;
 	ProjectileMovementComponent->InitialSpeed = 1300.0f;
+
+	TrailParticles = CreateAbstractDefaultSubobject<UParticleSystemComponent>(TEXT("TrailParticles"));
+	TrailParticles->SetupAttachment(RootComponent);
 }
+
+
 
 // Called when the game starts or when spawned
 void AProjectile::BeginPlay()
@@ -33,22 +40,51 @@ void AProjectile::BeginPlay()
 	//碰撞事件触发
 	ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
 	
+	//设置声音
+	if (LunchSound)
+	{
+		UGameplayStatics::PlaySoundAtLocation(this, LunchSound, GetActorLocation());
+	}
+
+	//设置抖动
+	if (HitCameraShakeClass)
+	{
+		GetWorld()->GetFirstPlayerController()->ClientStartCameraShake(HitCameraShakeClass);
+	}
+
 }
 
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	auto MyOwner = GetOwner();
-	if (MyOwner == nullptr) return;
+	AActor* MyOwner = GetOwner();
+	if (MyOwner == nullptr)
+	{
+		Destroy();
+		return;
+	}
 
-	auto MyOwnerOnstigator = MyOwner->GetInstigatorController();
-	auto DamageTypeClass =  UDamageType::StaticClass();
+	AController* MyOwnerOnstigator = MyOwner->GetInstigatorController();
+	UClass* DamageTypeClass =  UDamageType::StaticClass();
 
 	if (OtherActor && OtherActor != this && OtherActor != MyOwner)
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, MyOwnerOnstigator, this, DamageTypeClass);
-		Destroy();
+
+		//设置粒子效果
+		if (HitParticles)
+		{
+			UGameplayStatics::SpawnEmitterAtLocation(this, HitParticles, GetActorLocation(), GetActorRotation());
+
+		}
+
+		//设置声音
+		if (HitSound)
+		{
+			UGameplayStatics::PlaySoundAtLocation(this, HitSound, GetActorLocation());
+		}
 	}
 
+	Destroy();
 	
 }
 

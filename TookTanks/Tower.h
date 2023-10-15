@@ -3,14 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "BasePawn.h"
+#include "MyPawn.h"
 #include "Tower.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class TOOKTANKS_API ATower : public ABasePawn
+class TOOKTANKS_API ATower : public AMyPawn
 {
 	GENERATED_BODY()
 

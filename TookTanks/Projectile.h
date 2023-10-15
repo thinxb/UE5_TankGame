@@ -30,11 +30,25 @@ private:
 	UPROPERTY(EditAnywhere)
 	float Damage = 50.0f;
 
-	//UPROPERTY(EditDefaultsOnly,Category = "Movement")
-	//float MaxSpeed;
+	//ÅÚµ¯±¬Õ¨Ð§¹û
+	UPROPERTY(EditAnywhere,Category = "Combat")
+	class UParticleSystem* HitParticles;
 
-	//UPROPERTY(EditDefaultsOnly, Category = "Movement")
-	//float InitSpeed;
+	//ÅÚµ¯Î²Æø
+	UPROPERTY(VisibleAnywhere, Category = "Combat")
+	class UParticleSystemComponent* TrailParticles;
+
+	//±¬Õ¨ÉùÒô 
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	class USoundBase* LunchSound;
+
+	//ÉËº¦ÉùÒô 
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	class USoundBase* HitSound;
+
+	//Ôì³ÉÉËº¦ÉãÏñ»ú¶¶¶¯
+	UPROPERTY(EditAnywhere, Category = "Combat")
+	TSubclassOf<class UCameraShakeBase> HitCameraShakeClass;
 
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);

@@ -47,11 +47,11 @@ void UHealthComponent::DamageTaKen(AActor* DamageActor, float Damage, const UDam
 	//如果生命值小于等于0 直接返回
 	if (Damage <= 0.0f) return;
 	Health -= Damage;
-	UE_LOG(LogTemp, Warning, TEXT("Health: %f"), Health);
+	//UE_LOG(LogTemp, Warning, TEXT("Health: %f"), Health);
 
 	if (Health <= 0.0f && ToonTanksGameMode)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("ActorDied"));
+		//UE_LOG(LogTemp, Warning, TEXT("ActorDied"));
 		ToonTanksGameMode->ActorDied(DamageActor);
 	}
 
